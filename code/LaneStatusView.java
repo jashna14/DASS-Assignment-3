@@ -17,8 +17,6 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 	private JLabel curBowler;
     private JLabel pinsDown;
 	private JButton viewLane;
-	private final JButton pause;
-	private final JButton unpause;
 	private JButton viewPinSetter, maintenance;
 
 	private PinSetterView psv;
@@ -72,18 +70,6 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		viewPinSetter.addActionListener(this);
 		viewPinSetterPanel.add(viewPinSetter);
 
-		pause = new JButton("Pause");
-		JPanel pausePanel = new JPanel();
-		pausePanel.setLayout(new FlowLayout());
-		pause.addActionListener(this);
-		pausePanel.add(pause);
-
-		unpause = new JButton("UnPause");
-		JPanel unpausePanel = new JPanel();
-		unpausePanel.setLayout(new FlowLayout());
-		unpause.addActionListener(this);
-		unpausePanel.add(unpause);
-
 		maintenance = new JButton("     ");
 		maintenance.setBackground( Color.GREEN );
 		JPanel maintenancePanel = new JPanel();
@@ -98,8 +84,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		buttonPanel.add(viewLanePanel);
 		buttonPanel.add(viewPinSetterPanel);
 		buttonPanel.add(maintenancePanel);
-		buttonPanel.add(pausePanel);
-		buttonPanel.add(unpausePanel);
+
 
 		jp.add( cLabel );
 		jp.add( curBowler );
@@ -138,12 +123,6 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 					laneShowing=false;
 				}
 			}
-		}
-		if (e.getSource().equals(pause)) {
-			lane.pauseGame();
-		}
-		if (e.getSource().equals(unpause)) {
-			lane.unPauseGame();
 		}
 		if (e.getSource().equals(maintenance)) {
 			if ( lane.isPartyAssigned() ) {
