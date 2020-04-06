@@ -262,7 +262,7 @@ public class Lane extends Thread implements PinsetterObserver {
 					while (scoreIt.hasNext()){
 						Bowler thisBowler = (Bowler)scoreIt.next();
 						ScoreReport sr = new ScoreReport( thisBowler, finalScores[myIndex++], gameNumber );
-						sr.sendEmail(thisBowler.getEmail());
+//						sr.sendEmail(thisBowler.getEmail());
 						Iterator printIt = printVector.iterator();
 						while (printIt.hasNext()){
 							if (thisBowler.getNick().equals((String) printIt.next())){

@@ -1,1 +1,6 @@
-*.class
+code/*.class
+code/.idea
+code/SCOREHISTORY.DAT
+code/out/*
+code/codemr/*
+code/code.iml
