@@ -136,7 +136,7 @@ import java.util.Iterator;
 import java.util.HashMap;
 import java.util.Date;
 
-public class Lane extends Thread implements PinsetterObserver {	
+public class Lane extends Thread implements PinsetterObserver {
 	private Party party;
 	private Pinsetter setter;
 	private HashMap scores;
@@ -220,7 +220,7 @@ public class Lane extends Thread implements PinsetterObserver {
 						try{
 						Date date = new Date();
 						String dateString = "" + date.getHours() + ":" + date.getMinutes() + " " + date.getMonth() + "/" + date.getDay() + "/" + (date.getYear() + 1900);
-						ScoreHistoryFile.addScore(currentThrower.getNick(), dateString, Integer.valueOf(cumulScores[bowlIndex][9]).toString());
+						ScoreHistoryFile.addScore(currentThrower.getNickName(), dateString, Integer.valueOf(cumulScores[bowlIndex][9]).toString());
 						} catch (Exception e) {System.err.println("Exception in addScore. "+ e );} 
 					}
 
@@ -271,8 +271,8 @@ public class Lane extends Thread implements PinsetterObserver {
 //						sr.sendEmail(thisBowler.getEmail());
 						Iterator printIt = printVector.iterator();
 						while (printIt.hasNext()){
-							if (thisBowler.getNick().equals((String) printIt.next())){
-								System.out.println("Printing " + thisBowler.getNick());
+							if (thisBowler.getNickName().equals((String) printIt.next())){
+								System.out.println("Printing " + thisBowler.getNickName());
 								sr.sendPrintout();
 							}
 						}
