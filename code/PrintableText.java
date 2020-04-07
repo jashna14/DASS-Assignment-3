@@ -16,10 +16,17 @@ public class PrintableText implements Printable {
 		text = t;
 	}
 
-	public int print(Graphics g, PageFormat pageFormat, int pageIndex) {
-		if (pageIndex > 0) {
+	public int NosuchPage(int pageIndex) {
+		if(pageIndex > 0) {
 			return NO_SUCH_PAGE;
 		}
+		return pageIndex;
+	}
+	public int print(Graphics g, PageFormat pageFormat, int pageIndex) {
+//		if (pageIndex > 0) {
+//			return NO_SUCH_PAGE;
+//		}
+		NosuchPage(pageIndex);
 		
 		Graphics2D g2d = (Graphics2D) g; // Allow use of Java 2 graphics on
 
@@ -36,7 +43,8 @@ public class PrintableText implements Printable {
 		for (int i=0; i < lines.length; i++) {		
 			if (lines[i].length() > 0) {
 				TextLayout layout = new TextLayout(lines[i], font, frc);
-				layout.draw(g2d, (float) pen.x, (float) (pen.y + i*14));
+				double tempsum = pen.y + i*14;
+				layout.draw(g2d, (float) pen.x, (float) (tempsum));
 			}
 		}
 
