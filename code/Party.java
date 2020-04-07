@@ -28,6 +28,8 @@ public class Party {
 
 	/** Vector of bowlers in this party */	
     private Vector myBowlers;
+	private HashMap curScores;
+	private int[][] cumulScores;
 	
 	/**
 	 * Constructor for a Party
@@ -48,5 +50,27 @@ public class Party {
     public Vector getMembers() {
 		return (Vector) myBowlers.clone();
     }
+
+    public void set_scores(int[][] cumul, HashMap cur){
+    	cumulScores = cumul.clone();
+    	curScores = (HashMap) cur.clone();
+	}
+
+	public HashMap get_CurScores() {
+    	return curScores;
+	}
+
+	public int[][] get_CumulScores() {
+		return cumulScores;
+	}
+
+	public void print_scores() {
+		for(int i=0; i<myBowlers.size();i++) {
+			for(int j = 0;j<10;j++) {
+				System.out.print(cumulScores[i][j]);
+			}
+		}
+	}
+
 
 }

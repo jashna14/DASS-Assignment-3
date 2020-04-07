@@ -16,8 +16,8 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 
 	private JLabel curBowler;
     private JLabel pinsDown;
-	private new_button viewLane;
-	private new_button viewPinSetter, maintenance;
+	private new_button viewLane , pause , unpause;
+	private new_button viewPinSetter, maintenance , save;
 
 	private PinSetterView psv;
 	private LaneView lv;
@@ -68,6 +68,15 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		maintenance.add_button(this,buttonPanel);
 		maintenance.set_Background_green();
 
+		pause = new new_button("Pause");
+		pause.add_button(this,buttonPanel);
+
+		unpause = new new_button("UnPause");
+		unpause.add_button(this,buttonPanel);
+
+		save = new new_button("Save and Exit");
+		save.add_button(this,buttonPanel);
+
 
 
 		viewLane.set_Enabled( false );
@@ -102,7 +111,7 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 				}
 			}
 
-			if (e.getSource().equals(viewLane.get_button())) {
+			else if (e.getSource().equals(viewLane.get_button())) {
 				if (!laneShowing) {
 					lv.show();
 					laneShowing = true;
@@ -111,14 +120,28 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 					laneShowing = false;
 				}
 			}
-			if (e.getSource().equals(maintenance.get_button())) {
+
+			else if (e.getSource().equals(maintenance.get_button())) {
 				lane.unPauseGame();
 				maintenance.set_Background_green();
 			}
+
+			else if (e.getSource().equals(pause.get_button())) {
+				lane.pauseGame();
+			}
+
+			else if (e.getSource().equals(unpause.get_button())) {
+				lane.unPauseGame();
+			}
+
+			else if (e.getSource().equals(save.get_button())) {
+				lane.save_data();
+			}
+
 		}
 	}
 
-	public void receiveLaneEvent(LaneEvent le) {
+		public void receiveLaneEvent(LaneEvent le) {
 		curBowler.setText( le.getBowler().getNickName() );
 		if ( le.isMechanicalProblem() ) {
 			maintenance.set_Background_red();

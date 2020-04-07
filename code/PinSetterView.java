@@ -66,7 +66,7 @@ public class PinSetterView implements PinsetterObserver {
 	//******************************************************************
 	
 	//**********************Grid of the pins**************************
-	
+
 	
 	JPanel one = new JPanel ();
 	JLabel oneL = new JLabel ( "1" );
