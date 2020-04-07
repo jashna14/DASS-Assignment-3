@@ -22,7 +22,7 @@ import java.util.*;
 
 public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
-	private JButton addParty, finished, assign;
+	private new_button addParty , finished , assign;
 	private JFrame win;
 	private JList partyList;
 	
@@ -54,26 +54,16 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		controlsPanel.setLayout(new GridLayout(3, 1));
 		controlsPanel.setBorder(new TitledBorder("Controls"));
 
-		addParty = new JButton("Add Party");
-		JPanel addPartyPanel = new JPanel();
-		addPartyPanel.setLayout(new FlowLayout());
-		addParty.addActionListener(this);
-		addPartyPanel.add(addParty);
-		controlsPanel.add(addPartyPanel);
+		// button Panel
+		addParty = new new_button("Add Party");
+		addParty.add_button(this,controlsPanel);
 
-		assign = new JButton("Assign Lanes");
-		JPanel assignPanel = new JPanel();
-		assignPanel.setLayout(new FlowLayout());
-		assign.addActionListener(this);
-		assignPanel.add(assign);
-//		controlsPanel.add(assignPanel);
+		finished = new new_button("Finished");
+		finished.add_button(this,controlsPanel);
 
-		finished = new JButton("Finished");
-		JPanel finishedPanel = new JPanel();
-		finishedPanel.setLayout(new FlowLayout());
-		finished.addActionListener(this);
-		finishedPanel.add(finished);
-		controlsPanel.add(finishedPanel);
+//		assign = new new_button("Assign Lanes");
+//		assign.add_button(this,controlsPanel);
+
 
 		// Lane Status Panel
 		JPanel laneStatusPanel = new JPanel();
@@ -143,16 +133,16 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 	 */
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(addParty)) {
+		if (e.getSource().equals(addParty.get_button())) {
 			AddPartyView addPartyWin = new AddPartyView(this, maxMembers);
 		}
-		if (e.getSource().equals(assign)) {
-			controlDesk.assignLane();
-		}
-		if (e.getSource().equals(finished)) {
+		if (e.getSource().equals(finished.get_button())) {
 			win.hide();
 			System.exit(0);
 		}
+//		if (e.getSource().equals(assign.get_button())) {
+//			controlDesk.assignLane();
+//		}
 	}
 
 	/**

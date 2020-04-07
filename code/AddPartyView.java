@@ -38,7 +38,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 	private int maxSize;
 
 	private JFrame win;
-	private JButton addPatron, newPatron, remPatron, finished;
+	private new_button addPatron, newPatron, remPatron, finished;
 	private JList partyList, allBowlers;
 	private Vector party, bowlerdb;
 	private Integer lock;
@@ -102,34 +102,17 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 
 		Insets buttonMargin = new Insets(4, 4, 4, 4);
 
-		addPatron = new JButton("Add to Party");
-		JPanel addPatronPanel = new JPanel();
-		addPatronPanel.setLayout(new FlowLayout());
-		addPatron.addActionListener(this);
-		addPatronPanel.add(addPatron);
+		addPatron = new new_button("Add to Party");
+		addPatron.add_button(this,buttonPanel);
 
-		remPatron = new JButton("Remove Member");
-		JPanel remPatronPanel = new JPanel();
-		remPatronPanel.setLayout(new FlowLayout());
-		remPatron.addActionListener(this);
-		remPatronPanel.add(remPatron);
+		remPatron = new new_button("Remove Member");
+		remPatron.add_button(this,buttonPanel);
 
-		newPatron = new JButton("New Patron");
-		JPanel newPatronPanel = new JPanel();
-		newPatronPanel.setLayout(new FlowLayout());
-		newPatron.addActionListener(this);
-		newPatronPanel.add(newPatron);
+		newPatron = new new_button("New Patron");
+		newPatron.add_button(this,buttonPanel);
 
-		finished = new JButton("Finished");
-		JPanel finishedPanel = new JPanel();
-		finishedPanel.setLayout(new FlowLayout());
-		finished.addActionListener(this);
-		finishedPanel.add(finished);
-
-		buttonPanel.add(addPatronPanel);
-		buttonPanel.add(remPatronPanel);
-		buttonPanel.add(newPatronPanel);
-		buttonPanel.add(finishedPanel);
+		finished = new new_button("Finished");
+		finished.add_button(this,buttonPanel);
 
 		// Clean up main panel
 		colPanel.add(partyPanel);
@@ -150,7 +133,7 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(addPatron)) {
+		if (e.getSource().equals(addPatron.get_button())) {
 			if (selectedNick != null && party.size() < maxSize) {
 				if (party.contains(selectedNick)) {
 					System.err.println("Member already in Party");
@@ -160,16 +143,16 @@ public class AddPartyView implements ActionListener, ListSelectionListener {
 				}
 			}
 		}
-		if (e.getSource().equals(remPatron)) {
+		if (e.getSource().equals(remPatron.get_button())) {
 			if (selectedMember != null) {
 				party.removeElement(selectedMember);
 				partyList.setListData(party);
 			}
 		}
-		if (e.getSource().equals(newPatron)) {
+		if (e.getSource().equals(newPatron.get_button())) {
 			NewPatronView newPatron = new NewPatronView( this );
 		}
-		if (e.getSource().equals(finished)) {
+		if (e.getSource().equals(finished.get_button())) {
 			if ( party != null && party.size() > 0) {
 				controlDesk.updateAddParty( this );
 			}
