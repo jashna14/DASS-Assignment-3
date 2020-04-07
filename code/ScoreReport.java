@@ -9,35 +9,33 @@ import java.awt.print.*;
 public class ScoreReport {
 
 	private String content;
-	
-	public ScoreReport( Bowler bowler, int[] scores, int games ) {
-		String nick = bowler.getNick();
-		String full = bowler.getFullName();
-		Vector v = null;
-		try{
-			v = ScoreHistoryFile.getScores(nick);
-		} catch (Exception e){System.err.println("Error: " + e);}
-		
-		Iterator scoreIt = v.iterator();
-		
+	private void setContent(Bowler bowler,int[] scores,int games){
 		content = "";
-		content += "--Lucky Strike Bowling Alley Score Report--\n";
-		content += "\n";
-		content += "Report for " + full + ", aka \"" + nick + "\":\n";
-		content += "\n";
-		content += "Final scores for this session: ";
-		content += scores[0];
+		content += "--Lucky Strike Bowling Alley Score Report--\n\n";
+		content += "Report for " + bowler.getFullName() + ", aka \"" + bowler.getNickName() + "\":\n\n";
+		content += "Final scores for this session: "+scores[0];
 		for (int i = 1; i < games; i++){
 			content += ", " + scores[i];
 		}
-		content += ".\n";
-		content += "\n";
-		content += "\n";
-		content += "Previous scores by date: \n";
+		content += ".\n\n\nPrevious scores by date: \n";
+	}
+
+	private Iterator getAllSCores(String nick){
+		Vector AllScores = null;
+		try{
+			AllScores = ScoreHistoryFile.getScores(nick);
+		} catch (Exception e){System.err.println("Error: " + e);}
+
+		Iterator scoreIt = AllScores.iterator();
+		return scoreIt;
+	}
+
+	public ScoreReport( Bowler bowler, int[] scores, int games ) {
+		setContent(bowler,scores,games);
+		Iterator scoreIt = getAllSCores(bowler.getNickName());
 		while (scoreIt.hasNext()){
 			Score score = (Score) scoreIt.next();
-			content += "  " + score.getDate() + " - " +  score.getScore();
-			content += "\n";
+			content += "  " + score.getDate() + " - " +  score.getScore() + "\n";
 		}
 		content += "\n\n";
 		content += "Thank you for your continuing patronage.";
