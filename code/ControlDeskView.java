@@ -24,8 +24,8 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
 	private new_button addParty , finished , assign;
 	private JFrame win;
-	private JList partyList;
-	
+	private ScrollList partyList;
+
 	/** The maximum  number of members in a party */
 	private int maxMembers;
 	
@@ -91,14 +91,8 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		Vector empty = new Vector();
 		empty.add("(Empty)");
 
-		partyList = new JList(empty);
-		partyList.setFixedCellWidth(120);
-		partyList.setVisibleRowCount(10);
-		JScrollPane partyPane = new JScrollPane(partyList);
-		partyPane.setVerticalScrollBarPolicy(
-			JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		partyPanel.add(partyPane);
-		//		partyPanel.add(partyList);
+		partyList = new ScrollList(empty);
+		partyList.add_list(10,120,partyPanel);
 
 		// Clean up main panel
 		colPanel.add(controlsPanel, "East");
@@ -164,6 +158,6 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 	 */
 
 	public void receiveControlDeskEvent(ControlDeskEvent ce) {
-		partyList.setListData(ce.getPartyQueue());
+		partyList.set_ListData(ce.getPartyQueue());
 	}
 }
