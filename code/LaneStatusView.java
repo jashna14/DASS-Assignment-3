@@ -8,9 +8,11 @@
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import javax.swing.*;
+import java.io.Serializable;
 
-public class LaneStatusView implements ActionListener, LaneObserver, PinsetterObserver {
+public class LaneStatusView implements ActionListener, LaneObserver,Serializable, PinsetterObserver {
 
 	private JPanel jp;
 
@@ -74,8 +76,8 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 		unpause = new new_button("UnPause");
 		unpause.add_button(this,buttonPanel);
 
-		save = new new_button("Save and Exit");
-		save.add_button(this,buttonPanel);
+//		save = new new_button("Save and Exit");
+//		save.add_button(this,buttonPanel);
 
 
 
@@ -127,16 +129,16 @@ public class LaneStatusView implements ActionListener, LaneObserver, PinsetterOb
 			}
 
 			else if (e.getSource().equals(pause.get_button())) {
-				lane.pauseGame();
+				lane.pause1Game();
 			}
 
 			else if (e.getSource().equals(unpause.get_button())) {
 				lane.unPauseGame();
 			}
 
-			else if (e.getSource().equals(save.get_button())) {
-				lane.save_data();
-			}
+//			else if (e.getSource().equals(save.get_button())) {
+//					lane.save_data();
+//			}
 
 		}
 	}

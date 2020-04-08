@@ -21,8 +21,9 @@
  *  Class that holds all bowler info
  *
  */
+import java.io.Serializable;
 
-public class Bowler {
+public class Bowler implements Serializable {
 
     private String fullName;
     private String nickName;

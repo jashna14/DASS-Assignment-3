@@ -131,12 +131,13 @@
  * 
  */
 
-import java.util.Vector;
-import java.util.Iterator;
-import java.util.HashMap;
-import java.util.Date;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.*;
+import java.io.Serializable;
 
-public class Lane extends Thread implements PinsetterObserver {
+public class Lane extends Thread implements PinsetterObserver , Serializable {
 	private Party party;
 	private Pinsetter setter;
 	private HashMap scores;
@@ -211,7 +212,7 @@ public class Lane extends Thread implements PinsetterObserver {
 					tenthFrameStrike = false;
 					ball = 0;
 					while (canThrowAgain) {
-						setter.ballThrown();		// simulate the thrower's ball hiting
+						setter.ballThrown();		// simulate the thrower's ball hitting
 						ball++;
 					}
 
@@ -489,10 +490,11 @@ public class Lane extends Thread implements PinsetterObserver {
 		publish(lanePublish());
 	}
 
-	public void save_data() {
+	public void pause1Game() {
+		gameIsHalted = true;
+		publish(lanePublish());
 		party.set_scores(cumulScores , scores);
 		party.print_scores();
-		partyAssigned = false;
 	}
 
 }
