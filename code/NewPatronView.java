@@ -28,12 +28,33 @@ public class NewPatronView implements ActionListener {
 	private JFrame win;
 	private new_button abort, addPatron;
     private JTextField nickField, fullField, emailField;
+//    private JTextField tempField;
 	private String nick, full, email;
 
 	private boolean done;
 
 	private String selectedNick, selectedMember;
 	private AddPartyView addParty;
+
+	public JPanel PanelFunction(String iname){
+		JPanel tempPanel = new JPanel();
+		tempPanel.setLayout(new FlowLayout());
+		JLabel tempLabel = new JLabel(iname);
+		tempPanel.add(tempLabel);
+		if (iname == "Nick Name"){
+			nickField = new JTextField("", 15);
+			tempPanel.add(nickField);
+		}
+		if (iname == "Full Name"){
+			fullField = new JTextField("", 15);
+			tempPanel.add(fullField);
+		}
+		if (iname == "E-Mail") {
+			emailField = new JTextField("", 15);
+			tempPanel.add(emailField);
+		}
+		return tempPanel;
+	}
 
 	public NewPatronView(AddPartyView v) {
 
@@ -52,26 +73,30 @@ public class NewPatronView implements ActionListener {
 		patronPanel.setLayout(new GridLayout(3, 1));
 		patronPanel.setBorder(new TitledBorder("Your Info"));
 
-		JPanel nickPanel = new JPanel();
-		nickPanel.setLayout(new FlowLayout());
-        JLabel nickLabel = new JLabel("Nick Name");
-		nickField = new JTextField("", 15);
-		nickPanel.add(nickLabel);
-		nickPanel.add(nickField);
+		JPanel nickPanel = PanelFunction("Nick Name");
+		JPanel fullPanel = PanelFunction("Full Name");
+		JPanel emailPanel = PanelFunction("E-Mail");
 
-		JPanel fullPanel = new JPanel();
-		fullPanel.setLayout(new FlowLayout());
-        JLabel fullLabel = new JLabel("Full Name");
-		fullField = new JTextField("", 15);
-		fullPanel.add(fullLabel);
-		fullPanel.add(fullField);
-
-		JPanel emailPanel = new JPanel();
-		emailPanel.setLayout(new FlowLayout());
-        JLabel emailLabel = new JLabel("E-Mail");
-		emailField = new JTextField("", 15);
-		emailPanel.add(emailLabel);
-		emailPanel.add(emailField);
+//		JPanel nickPanel = new JPanel();
+//		nickPanel.setLayout(new FlowLayout());
+//        JLabel nickLabel = new JLabel("Nick Name");
+//		nickField = new JTextField("", 15);
+//		nickPanel.add(nickLabel);
+//		nickPanel.add(nickField);
+//
+//		JPanel fullPanel = new JPanel();
+//		fullPanel.setLayout(new FlowLayout());
+//        JLabel fullLabel = new JLabel("Full Name");
+//		fullField = new JTextField("", 15);
+//		fullPanel.add(fullLabel);
+//		fullPanel.add(fullField);
+//
+//		JPanel emailPanel = new JPanel();
+//		emailPanel.setLayout(new FlowLayout());
+//        JLabel emailLabel = new JLabel("E-Mail");
+//		emailField = new JTextField("", 15);
+//		emailPanel.add(emailLabel);
+//		emailPanel.add(emailField);
 
 		patronPanel.add(nickPanel);
 		patronPanel.add(fullPanel);

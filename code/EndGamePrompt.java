@@ -81,7 +81,7 @@ public class EndGamePrompt implements ActionListener {
 		if (e.getSource().equals(yesButton)) {		
 			result=1;
 		}
-		if (e.getSource().equals(noButton)) {		
+		else if (e.getSource().equals(noButton)) {
 			result=2;
 		}
 
