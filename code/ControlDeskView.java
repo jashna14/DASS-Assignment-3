@@ -22,7 +22,7 @@ import java.util.*;
 
 public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
-	private new_button addParty , finished , assign;
+	private new_button addParty , finished , assign, statistics;
 	private JFrame win;
 	private ScrollList partyList;
 
@@ -60,6 +60,9 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
 		finished = new new_button("Finished");
 		finished.add_button(this,controlsPanel);
+
+		statistics = new new_button("Statistics");
+		statistics.add_button(this,controlsPanel);
 
 //		assign = new new_button("Assign Lanes");
 //		assign.add_button(this,controlsPanel);
@@ -133,6 +136,9 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		if (e.getSource().equals(finished.get_button())) {
 			win.hide();
 			System.exit(0);
+		}
+		if (e.getSource().equals(statistics.get_button())) {
+			Stats stats = new Stats();
 		}
 //		if (e.getSource().equals(assign.get_button())) {
 //			controlDesk.assignLane();

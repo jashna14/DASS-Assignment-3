@@ -12,7 +12,7 @@ import java.io.*;
 public class ScoreHistoryFile {
 
 	private static String SCOREHISTORY_DAT = "SCOREHISTORY.DAT";
-
+	private static int NumberOfScores;
 	public static void addScore(String nick, String date, String score)
 		throws IOException, FileNotFoundException {
 
@@ -41,5 +41,25 @@ public class ScoreHistoryFile {
 		}
 		return scores;
 	}
-
+	public static int getNumberOfScores(){
+		return NumberOfScores;
+	}
+	public static String[][] AllScores() throws IOException, FileNotFoundException {
+		String[][] scores = new String[1000][];
+		int  index = 0;
+		BufferedReader in =
+				new BufferedReader(new FileReader(SCOREHISTORY_DAT));
+		String data;
+		while ((data = in.readLine()) != null) {
+			String[] scoredata = data.split("\t");
+			if(scoredata!=null) {
+				scores[index++] = new String[]{scoredata[0], scoredata[1], scoredata[2]};
+			}
+		}
+		setNumberOfScores(index);
+		return scores;
+	}
+	private static void setNumberOfScores(int value){
+		NumberOfScores= value;
+	}
 }
