@@ -71,8 +71,8 @@ public class Party implements Serializable {
     	curScores = curscores;
 
 		ExistingGameData data = new ExistingGameData();
-		ArrayList<Object> dataout = (ArrayList<Object>) data.get_data();
-//		ArrayList<Object> dataout = new ArrayList<Object>();
+//		ArrayList<Object> dataout = (ArrayList<Object>) data.get_data();
+		ArrayList<Object> dataout = new ArrayList<Object>();
 		System.out.println(dataout.size());
 
 		ArrayList<Object> datasub = new ArrayList<Object>();

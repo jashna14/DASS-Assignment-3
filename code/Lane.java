@@ -376,7 +376,6 @@ public class Lane extends Thread implements PinsetterObserver , Serializable {
 			gameFinished = false;
 			frameNumber = 0;
 		} else {
-
 			curScores = theParty.curScores;
 			cumulScores = theParty.cumulScores;
 			finalScores = theParty.finalScores;

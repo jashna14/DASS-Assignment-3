@@ -73,7 +73,7 @@ public class LaneStatusView implements ActionListener, LaneObserver,Serializable
 		pause = new new_button("Pause");
 		pause.add_button(this,buttonPanel);
 
-		unpause = new new_button("UnPause");
+		unpause = new new_button("Resume");
 		unpause.add_button(this,buttonPanel);
 
 //		save = new new_button("Save and Exit");

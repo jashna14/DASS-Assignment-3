@@ -179,6 +179,7 @@ public class LaneView implements LaneObserver, ActionListener {
 			if ((le.getFrameNum() == 1
 				&& le.getBall() == 0
 				&& le.getIndex() == 0) || le.getParty().isExisting) {
+				le.getParty().isExisting = false;
 				System.out.println("Making the frame.");
 				cpanel.removeAll();
 				cpanel.add(makeFrame(le.getParty()), "Center");

@@ -58,7 +58,7 @@ public class ExistingGameView implements ActionListener, ListSelectionListener {
         }
 
         partyList = new ScrollList(empty);
-        partyList.add_list(5,120,partyPanel);
+        partyList.add_list(15,300,partyPanel);
         partyList.get_list().addListSelectionListener((ListSelectionListener) this);
 
         // button panel
