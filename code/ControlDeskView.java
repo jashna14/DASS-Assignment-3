@@ -22,7 +22,7 @@ import java.util.*;
 
 public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
-	private new_button addParty , finished , assign, statistics;
+	private new_button addParty , finished , existingGame, statistics;
 	private JFrame win;
 	private ScrollList partyList;
 
@@ -64,9 +64,8 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		statistics = new new_button("Statistics");
 		statistics.add_button(this,controlsPanel);
 
-//		assign = new new_button("Assign Lanes");
-//		assign.add_button(this,controlsPanel);
-
+		existingGame = new new_button("Play Existing Game");
+		existingGame.add_button(this,controlsPanel);
 
 		// Lane Status Panel
 		JPanel laneStatusPanel = new JPanel();
@@ -140,9 +139,9 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 		if (e.getSource().equals(statistics.get_button())) {
 			Stats stats = new Stats();
 		}
-//		if (e.getSource().equals(assign.get_button())) {
-//			controlDesk.assignLane();
-//		}
+		if (e.getSource().equals(existingGame.get_button())) {
+			ExistingGameView existingGameView = new ExistingGameView(controlDesk);
+		}
 	}
 
 	/**

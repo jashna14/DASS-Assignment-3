@@ -129,6 +129,9 @@ public class LaneView implements LaneObserver, ActionListener {
 		for (int k = 0; k < numBowlers; k++) {
 			for (int i = 0; i <= le.getFrameNum() - 1; i++) {
 				if (lescores[k][i] != 0)
+					if(scoreLabel == null){
+						System.out.println("jashnaa");
+					}
 					scoreLabel[k][i].setText(
 							(Integer.valueOf(lescores[k][i])).toString());
 			}
@@ -163,6 +166,8 @@ public class LaneView implements LaneObserver, ActionListener {
 
 	}
 
+
+
 	public void receiveLaneEvent(LaneEvent le) {
 		if (lane.isPartyAssigned()) {
 			int numBowlers = le.getParty().getMembers().size();
@@ -174,9 +179,9 @@ public class LaneView implements LaneObserver, ActionListener {
 				}
 			}
 
-			if (le.getFrameNum() == 1
-				&& le.getBall() == 0
-				&& le.getIndex() == 0) {
+//			if (le.getFrameNum() == 1
+//				&& le.getBall() == 0
+//				&& le.getIndex() == 0) {
 				System.out.println("Making the frame.");
 				cpanel.removeAll();
 				cpanel.add(makeFrame(le.getParty()), "Center");
@@ -195,7 +200,7 @@ public class LaneView implements LaneObserver, ActionListener {
 
 				frame.pack();
 
-			}
+//			}
 
 			mark_score(le,numBowlers);
 		}

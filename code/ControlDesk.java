@@ -60,7 +60,7 @@ class ControlDesk extends Thread {
     /**
      * Constructor for the ControlDesk class
      *
-     * @param numlanes	the numbler of lanes to be represented
+     * @param /numlanes	the numbler of lanes to be represented
      *
      */
 
@@ -165,10 +165,15 @@ class ControlDesk extends Thread {
 		publish(new ControlDeskEvent(getPartyQueue()));
 	}
 
+	public void addExistingPartyQueue(Party party) {
+		partyQueue.add(party);
+		publish(new ControlDeskEvent(getPartyQueue()));
+	}
+
     /**
      * Returns a Vector of party names to be displayed in the GUI representation of the wait queue.
 	 *
-     * @return a Vecotr of Strings
+     * @return a Vector of Strings
      *
      */
 

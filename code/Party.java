@@ -27,10 +27,17 @@ import java.util.*;
 
 public class Party implements Serializable {
 
-	/** Vector of bowlers in this party */	
+	/** Vector of bowlers in this party */
+	public boolean isExisting;
     private Vector myBowlers;
-	private HashMap curScores;
-	private int[][] cumulScores;
+	public HashMap Scores;
+	public int[][] cumulScores;
+	public boolean gameFinished;
+	public int frameNumber;
+	public int gameNumber;
+	public boolean tenthFrameStrike;
+	public int[][] finalScores;
+	public int[] curScores;
 	
 	/**
 	 * Constructor for a Party
@@ -40,6 +47,7 @@ public class Party implements Serializable {
 		
     public Party( Vector bowlers ) {
 		myBowlers = new Vector(bowlers);
+		isExisting = false;
     }
 
 	/**
@@ -52,77 +60,37 @@ public class Party implements Serializable {
 		return (Vector) myBowlers.clone();
     }
 
-    public void set_scores(int[][] cumul, HashMap cur){
+    public void set_scores(int[][] cumul, HashMap cur , boolean gamefinished , int framenumber , boolean tenthframestrike , int gamenumber , int[][] finalscores , int[] curscores){
     	cumulScores = cumul.clone();
-    	curScores = (HashMap) cur.clone();
-
-    	// save the data
-		ArrayList<Object> data = new ArrayList<Object>();
-		data.add(myBowlers);
-		data.add(cumulScores);
-		data.add(curScores);
-
-		try {
-			FileOutputStream fileOut = new FileOutputStream("data.ser");
-			ObjectOutputStream out = new ObjectOutputStream(fileOut);
-			out.writeObject(data);
-			out.close();
-			fileOut.close();
-			System.out.println("data saved");
-		} catch(IOException i) {
-			i.printStackTrace();
-		}
-
-		// extract the data
-		ArrayList<Object> dataout = new ArrayList<Object>();
-
-		try {
-			FileInputStream fileIn  = new FileInputStream("data.ser");
-			ObjectInputStream in = new ObjectInputStream(fileIn);
-			dataout = (ArrayList<Object>)in.readObject();
-			in.close();
-			fileIn.close();
-		} catch (IOException i) {
-			i.printStackTrace();
-			return;
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return;
-		}
-
-		// extract data from object
-		 Vector mybowlernew = (Vector)dataout.get(0);
-		 int[][] cumulnew = (int[][])dataout.get(1);
-		 HashMap curnew = (HashMap)dataout.get(2);
-
-		for(int i=0; i<mybowlernew.size();i++) {
-			for(int j = 0;j<10;j++) {
-				System.out.print(cumulnew[i][j]);
-			}
-		}
-		System.out.println("");
+    	Scores = (HashMap) cur.clone();
+    	gameFinished = gamefinished;
+    	frameNumber = framenumber;
+    	tenthFrameStrike = tenthframestrike;
+    	gameNumber = gamenumber;
+    	finalScores = finalscores.clone();
+    	curScores = curscores;
 
 
+		ExistingGameData data = new ExistingGameData();
+		ArrayList<Object> dataout = (ArrayList<Object>) data.get_data();
+//		ArrayList<Object> dataout = new ArrayList<Object>();
+		System.out.println(dataout.size());
+
+		ArrayList<Object> datasub = new ArrayList<Object>();
+
+		datasub.add(myBowlers);
+		datasub.add(cumulScores);
+		datasub.add(Scores);
+		datasub.add(gameFinished);
+		datasub.add(frameNumber);
+		datasub.add(tenthFrameStrike);
+		datasub.add(gameNumber);
+		datasub.add(finalScores);
+		datasub.add(curScores);
+
+		dataout.add(datasub);
+
+		data.set_data(dataout);
 	}
-
-	public HashMap get_CurScores() {
-    	return curScores;
-	}
-
-	public int[][] get_CumulScores() {
-		return cumulScores;
-	}
-
-	public void print_scores(){
-
-		for(int i=0; i<myBowlers.size();i++) {
-			for(int j = 0;j<10;j++) {
-				System.out.print(cumulScores[i][j]);
-			}
-		}
-		System.out.println("");
-
-	}
-
 
 }

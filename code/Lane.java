@@ -128,7 +128,7 @@
  *   Revision 1.10  2003/01/26 20:44:05  ???
  *   small changes
  *
- * 
+ *
  */
 
 import java.io.FileOutputStream;
@@ -158,20 +158,20 @@ public class Lane extends Thread implements PinsetterObserver , Serializable {
 	private int[] curScores;
 	private int[][] cumulScores;
 	private boolean canThrowAgain;
-	
+
 	private int[][] finalScores;
 	private int gameNumber;
-	
+
 	private Bowler currentThrower;			// = the thrower who just took a throw
 
 	/** Lane()
-	 * 
+	 *
 	 * Constructs a new lane and starts its thread
-	 * 
+	 *
 	 * @pre none
 	 * @post a new lane has been created and its thered is executing
 	 */
-	public Lane() { 
+	public Lane() {
 		setter = new Pinsetter();
 		lanescore = new LaneScore();
 		scores = lanescore.init_scores();
@@ -184,19 +184,19 @@ public class Lane extends Thread implements PinsetterObserver , Serializable {
 		gameNumber = 0;
 
 		setter.subscribe( this );
-		
+
 		this.start();
 	}
 
 
 	/** run()
-	 * 
-	 * entry point for execution of this lane 
+	 *
+	 * entry point for execution of this lane
 	 */
 	public void run() {
-		
+
 		while (true) {
-			if (partyAssigned && !gameFinished) {	// we have a party on this lane, 
+			if (partyAssigned && !gameFinished) {	// we have a party on this lane,
 								// so next bower can take a throw
 
 				while (gameIsHalted) {
@@ -283,26 +283,27 @@ public class Lane extends Thread implements PinsetterObserver , Serializable {
 					}
 				}
 			}
-			
-			
+
+
 			try {
 				sleep(10);
 			} catch (Exception ignored) {}
 		}
 	}
-	
+
 	/** recievePinsetterEvent()
-	 * 
+	 *
 	 * recieves the thrown event from the pinsetter
 	 *
 	 * @pre none
 	 * @post the event has been acted upon if desiered
-	 * 
+	 *
 	 * @param pe 		The pinsetter event that has been received.
 	 */
 	public void receivePinsetterEvent(PinsetterEvent pe) {
 
 			if (pe.pinsDownOnThisThrow() >=  0) {			// this is a real throw
+
 				markScore(currentThrower, frameNumber + 1, pe.getThrowNumber(), pe.pinsDownOnThisThrow());
 
 				// next logic handles the ?: what conditions dont allow them another throw?
@@ -338,11 +339,11 @@ public class Lane extends Thread implements PinsetterObserver , Serializable {
 			} else {								//  this is not a real throw, probably a reset
 			}
 	}
-	
+
 	/** resetBowlerIterator()
-	 * 
+	 *
 	 * sets the current bower iterator back to the first bowler
-	 * 
+	 *
 	 * @pre the party as been assigned
 	 * @post the iterator points to the first bowler in the party
 	 */
@@ -351,43 +352,60 @@ public class Lane extends Thread implements PinsetterObserver , Serializable {
 	}
 
 	/** assignParty()
-	 * 
+	 *
 	 * assigns a party to this lane
-	 * 
+	 *
 	 * @pre none
 	 * @post the party has been assigned to the lane
-	 * 
+	 *
 	 * @param theParty		Party to be assigned
 	 */
 	public void assignParty( Party theParty ) {
 		party = theParty;
 		resetBowlerIterator();
 		partyAssigned = true;
-		
-		curScores = new int[party.getMembers().size()];
-		cumulScores = new int[party.getMembers().size()][10];
-		finalScores = new int[party.getMembers().size()][128]; //Hardcoding a max of 128 games, bite me.
-		gameNumber = 0;
-		
-		lanescore.resetScores(party);
-		gameFinished = false;
-		frameNumber = 0;
+
+		if (!theParty.isExisting) {
+
+			curScores = new int[party.getMembers().size()];
+			cumulScores = new int[party.getMembers().size()][10];
+			finalScores = new int[party.getMembers().size()][128]; //Hardcoding a max of 128 games, bite me.
+			gameNumber = 0;
+
+			lanescore.resetScores(party);
+			gameFinished = false;
+			frameNumber = 0;
+		} else {
+
+			curScores = theParty.curScores;
+			cumulScores = theParty.cumulScores;
+			finalScores = theParty.finalScores;
+			gameNumber = theParty.gameNumber;
+			gameFinished = theParty.gameFinished;
+			frameNumber = theParty.frameNumber;
+			lanescore.setScores(theParty.Scores);
+			scores = lanescore.init_scores();
+			tenthFrameStrike = theParty.tenthFrameStrike;
+		}
 	}
 
 	/** markScore()
 	 *
 	 * Method that marks a bowlers score on the board.
-	 * 
+	 *
 	 * @param Cur		The current bowler
 	 * @param frame	The frame that bowler is on
 	 * @param ball		The ball the bowler is on
-	 * @param score	The bowler's score 
+	 * @param score	The bowler's score
 	 */
 	private void markScore( Bowler Cur, int frame, int ball, int score ){
 		int[] curScore;
 		int index =  ( (frame - 1) * 2 + ball);
 
 		curScore = (int[]) scores.get(Cur);
+		if(curScore == null){
+			System.out.println("jashn");
+		}
 
 		curScore[ index - 1] = score;
 		scores.put(Cur, curScore);
@@ -398,7 +416,7 @@ public class Lane extends Thread implements PinsetterObserver , Serializable {
 	/** lanePublish()
 	 *
 	 * Method that creates and returns a newly created laneEvent
-	 * 
+	 *
 	 * @return		The new lane event
 	 */
 	private LaneEvent lanePublish(  ) {
@@ -407,17 +425,17 @@ public class Lane extends Thread implements PinsetterObserver , Serializable {
 
 
 	/** isPartyAssigned()
-	 * 
+	 *
 	 * checks if a party is assigned to this lane
-	 * 
+	 *
 	 * @return true if party assigned, false otherwise
 	 */
 	public boolean isPartyAssigned() {
 		return partyAssigned;
 	}
-	
+
 	/** isGameFinished
-	 * 
+	 *
 	 * @return true if the game is done, false otherwise
 	 */
 	public boolean isGameFinished() {
@@ -425,9 +443,9 @@ public class Lane extends Thread implements PinsetterObserver , Serializable {
 	}
 
 	/** subscribe
-	 * 
+	 *
 	 * Method that will add a subscriber
-	 * 
+	 *
 	 * @param \subscribe	Observer that is to be added
 	 */
 
@@ -436,12 +454,12 @@ public class Lane extends Thread implements PinsetterObserver , Serializable {
 	}
 
 	/** unsubscribe
-	 * 
+	 *
 	 * Method that unsubscribes an observer from this object
-	 * 
+	 *
 	 * @param removing	The observer to be removed
 	 */
-	
+
 	public void unsubscribe( LaneObserver removing ) {
 		subscribers.remove( removing );
 	}
@@ -449,23 +467,24 @@ public class Lane extends Thread implements PinsetterObserver , Serializable {
 	/** publish
 	 *
 	 * Method that publishes an event to subscribers
-	 * 
+	 *
 	 * @param event	Event that is to be published
 	 */
 
 	public void publish( LaneEvent event ) {
 		if( subscribers.size() > 0 ) {
 			Iterator eventIterator = subscribers.iterator();
-			
+
+
 			while ( eventIterator.hasNext() ) {
-				( (LaneObserver) eventIterator.next()).receiveLaneEvent( event );
+				( (LaneObserver) eventIterator.next()).receiveLaneEvent(event);
 			}
 		}
 	}
 
 	/**
 	 * Accessor to get this Lane's pinsetter
-	 * 
+	 *
 	 * @return		A reference to this lane's pinsetter
 	 */
 
@@ -481,7 +500,7 @@ public class Lane extends Thread implements PinsetterObserver , Serializable {
 		publish(lanePublish());
 
 	}
-	
+
 	/**
 	 * Resume the execution of this game
 	 */
@@ -493,8 +512,17 @@ public class Lane extends Thread implements PinsetterObserver , Serializable {
 	public void pause1Game() {
 		gameIsHalted = true;
 		publish(lanePublish());
-		party.set_scores(cumulScores , scores);
-		party.print_scores();
+		party.set_scores(cumulScores , scores , gameFinished , frameNumber , tenthFrameStrike , gameNumber , finalScores , curScores);
+
+//		System.out.println(gameFinished);
+//		System.out.println(frameNumber);
+//		System.out.println(tenthFrameStrike);
+//		System.out.println(gameNumber);
+
+
+//		private int[][] finalScores;
+
+
 	}
 
 }

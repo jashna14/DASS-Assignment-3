@@ -37,6 +37,10 @@ public class LaneScore {
 
     }
 
+    public void setScores(HashMap Scores) {
+        scores = (HashMap) Scores.clone();
+    }
+
 
 
     /** getScore()
