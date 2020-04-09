@@ -5,7 +5,7 @@ import javax.swing.event.*;
 import javax.swing.table.*;
 
 public class Stats extends JFrame {
-//    private JTextField jtf;
+//    privatex JTextField jtf;
 //    private JLabel searchLbl;
 //    private TableModel model;
 //    private JTable table;

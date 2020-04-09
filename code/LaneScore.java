@@ -52,6 +52,7 @@ public class LaneScore {
      *
      * @return			The bowlers total score
      */
+
     public int getScore( Bowler Cur, int frame , int ball, int[][] cumulScores,int bowlIndex) {
         int[] curScore;
         int strikeballs = 0;
