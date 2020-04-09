@@ -1,10 +1,9 @@
 import java.awt.*;
 import java.util.Arrays;
-import java.util.Comparator;
-import java.util.Vector;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.*;
+
 public class Stats extends JFrame {
 //    private JTextField jtf;
 //    private JLabel searchLbl;
@@ -80,13 +79,6 @@ public class Stats extends JFrame {
         }
     }
     private void SortAllScores(){
-        Arrays.sort(AllScores,new Comparator<String[]>(){
-
-            @Override
-            public int compare(String[] first, String[] second){
-                if(first!=null && second !=null){ return (Integer.parseInt(second[2]) > Integer.parseInt(first[2]))? 1:-1;}
-                return 0;
-            }
-        });
+        Arrays.sort(AllScores,new StringArrayComparator());
     }
 }
