@@ -14,7 +14,6 @@ public class ExistingGameData implements Serializable{
             dataout = (ArrayList<Object>)in.readObject();
             in.close();
             fileIn.close();
-
             return dataout;
         } catch (IOException i) {
             i.printStackTrace();
@@ -23,6 +22,33 @@ public class ExistingGameData implements Serializable{
             c.printStackTrace();
             return 0;
         }
+    }
+
+    public void delete_data(Party party) {
+        ArrayList<Object> dataout = (ArrayList<Object>) get_data();
+        String partyDelete = "";
+        for(int i = 0;i<party.getMembers().size();i++) {
+            Bowler bowler = (Bowler) party.getMembers().get(i);
+            partyDelete += bowler.getNickName() + " ";
+        }
+
+        for(int i = dataout.size()-1;i > -1 ;i--) {
+
+            ArrayList<Object> partyData = (ArrayList<Object>)dataout.get(i);
+
+            Vector members = (Vector) partyData.get(0);
+            String partyName = "";
+            for(int j =0;j<members.size();j++){
+                Bowler bowler = (Bowler) members.get(j);
+                partyName +=  bowler.getNickName() + " ";
+            }
+
+            if(partyDelete.equals(partyName)) {
+                dataout.remove(i);
+            }
+
+        }
+        set_data(dataout);
     }
 
     public void set_data(ArrayList<Object> Object) {

@@ -509,20 +509,18 @@ public class Lane extends Thread implements PinsetterObserver , Serializable {
 		publish(lanePublish());
 	}
 
-	public void pause1Game() {
+	public void pauseSaveGame() {
 		gameIsHalted = true;
 		publish(lanePublish());
 		party.set_scores(cumulScores , scores , gameFinished , frameNumber , tenthFrameStrike , gameNumber , finalScores , curScores);
 
-//		System.out.println(gameFinished);
-//		System.out.println(frameNumber);
-//		System.out.println(tenthFrameStrike);
-//		System.out.println(gameNumber);
+	}
 
-
-//		private int[][] finalScores;
-
-
+	public void unPauseRemoveGame() {
+		gameIsHalted = false;
+		ExistingGameData data = new ExistingGameData();
+		data.delete_data(party);
+		publish(lanePublish());
 	}
 
 }

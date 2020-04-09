@@ -51,7 +51,7 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 
 		// Controls Panel
 		JPanel controlsPanel = new JPanel();
-		controlsPanel.setLayout(new GridLayout(3, 1));
+		controlsPanel.setLayout(new GridLayout(4, 1));
 		controlsPanel.setBorder(new TitledBorder("Controls"));
 
 		// button Panel

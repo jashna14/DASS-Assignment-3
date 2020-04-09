@@ -129,11 +129,12 @@ public class LaneStatusView implements ActionListener, LaneObserver,Serializable
 			}
 
 			else if (e.getSource().equals(pause.get_button())) {
-				lane.pause1Game();
+				lane.pauseSaveGame();
 			}
 
 			else if (e.getSource().equals(unpause.get_button())) {
-				lane.unPauseGame();
+				lane.unPauseRemoveGame();
+				maintenance.set_Background_green();
 			}
 
 //			else if (e.getSource().equals(save.get_button())) {

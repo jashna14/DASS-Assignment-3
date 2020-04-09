@@ -70,7 +70,6 @@ public class Party implements Serializable {
     	finalScores = finalscores.clone();
     	curScores = curscores;
 
-
 		ExistingGameData data = new ExistingGameData();
 		ArrayList<Object> dataout = (ArrayList<Object>) data.get_data();
 //		ArrayList<Object> dataout = new ArrayList<Object>();
