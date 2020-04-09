@@ -128,14 +128,14 @@ public class NewPatronView implements ActionListener {
 		win.setLocation(
 			((screenSize.width) / 2) - ((win.getSize().width) / 2),
 			((screenSize.height) / 2) - ((win.getSize().height) / 2));
-		win.show();
+		win.setVisible(true);
 
 	}
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(abort.get_button())) {
 			done = true;
-			win.hide();
+			win.setVisible(false);
 		}
 
 		if (e.getSource().equals(addPatron.get_button())) {
@@ -144,7 +144,7 @@ public class NewPatronView implements ActionListener {
 			email = emailField.getText();
 			done = true;
 			addParty.updateNewPatron( this );
-			win.hide();
+			win.setVisible(false);
 		}
 
 	}

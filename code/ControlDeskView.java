@@ -133,7 +133,7 @@ public class ControlDeskView implements ActionListener, ControlDeskObserver {
 			AddPartyView addPartyWin = new AddPartyView(this, maxMembers);
 		}
 		if (e.getSource().equals(finished.get_button())) {
-			win.hide();
+			win.setVisible(false);
 			System.exit(0);
 		}
 		if (e.getSource().equals(statistics.get_button())) {

@@ -91,7 +91,7 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 		win.setLocation(
 			((screenSize.width) / 2) - ((win.getSize().width) / 2),
 			((screenSize.height) / 2) - ((win.getSize().height) / 2));
-		win.show();
+		win.setVisible(true);
 
 	}
 
@@ -101,7 +101,7 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 			retVal.add(selectedMember);
 		}
 		if (e.getSource().equals(finished)) {		
-			win.hide();
+			win.setVisible(false);
 			result = 1;
 		}
 
@@ -124,7 +124,7 @@ public class EndGameReport implements ActionListener, ListSelectionListener {
 	}
 	
 	public void destroy() {
-		win.hide();
+		win.setVisible(false);
 	}
 
 	public static void main(String[] args) {
